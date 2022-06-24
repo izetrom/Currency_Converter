@@ -1,2 +1,2 @@
 # Currency_Converter
-dotnet run example.txt to run program
+dotnet run <path_to_file> to run program
