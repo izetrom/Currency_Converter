@@ -10,12 +10,12 @@ namespace CurrencyConvertor {
             handleFile.initAllNodeAndEdges(file);
         }
 
-        static float Calcul(HandleFile handleFile)
+        static float calcul(HandleFile handleFile)
         {
             List<string> path = new List<string>();
             Graph<string> graph = new Graph<string>(handleFile.AllNodes, handleFile.Edges);
             Algorithm algorithm = new Algorithm();
-            Func<string, IEnumerable<string>> shortestPath = algorithm.ShortestPathFunction(graph, handleFile.Goal[0]);
+            Func<string, IEnumerable<string>> shortestPath = algorithm.shortestPathFunction(graph, handleFile.Goal[0]);
             path = shortestPath(handleFile.Goal[2]).ToList<string>();
             return algorithm.doConversion(handleFile, path);
         }
@@ -26,7 +26,7 @@ namespace CurrencyConvertor {
             try {
                 errorHandling.checkArgs(args);
                 Parse(handleFile, args);
-                float result = Calcul(handleFile);
+                float result = calcul(handleFile);
                 Console.WriteLine(result);
             } catch(Exception e)
             {

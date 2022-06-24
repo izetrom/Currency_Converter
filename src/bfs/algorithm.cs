@@ -8,11 +8,11 @@ namespace CurrencyConvertor
         interface IAlgorithm
         {
             public int doConversion(HandleFile handleFile, List<string> order);
-            public Func<T, IEnumerable<T>> ShortestPathFunction<T>(Graph<T> graph, T start) where T : notnull;
+            public Func<T, IEnumerable<T>> shortestPathFunction<T>(Graph<T> graph, T start) where T : notnull;
         }
         class Algorithm : IAlgorithm
         {
-            static float Calcul(bool reverse, float valueToConvert, string multiplicater)
+            static float calcul(bool reverse, float valueToConvert, string multiplicater)
             {
                 float tmp;
                 float.TryParse(multiplicater, out tmp);
@@ -32,15 +32,15 @@ namespace CurrencyConvertor
                     foreach(Tuple<string, string, string> line in handleFile.Edges)
                     {
                         if (line.Item1 == order[i] && line.Item2 == order[i + 1])
-                            valueToConvert = Calcul(false, valueToConvert, line.Item3);
+                            valueToConvert = calcul(false, valueToConvert, line.Item3);
                         else if (line.Item2 == order[i] && line.Item1 == order[i + 1])
-                            valueToConvert = Calcul(true, valueToConvert, line.Item3);
+                            valueToConvert = calcul(true, valueToConvert, line.Item3);
                     }
                 }
                 return (int)Math.Round(valueToConvert);
             }
 
-            public Func<T, IEnumerable<T>> ShortestPathFunction<T>(Graph<T> graph, T start) where T : notnull
+            public Func<T, IEnumerable<T>> shortestPathFunction<T>(Graph<T> graph, T start) where T : notnull
             {
                 Dictionary<T, T> previous = new Dictionary<T, T>();
                 Queue<T> queue = new Queue<T>();
