@@ -42,7 +42,8 @@ namespace CurrencyConvertor
                     lines = System.IO.File.ReadAllLines(filePath);
                     errorHandling.checkFormatFile(lines, formatLine, numberLine, convertLine);
                 } catch(Exception e) {
-                    System.Console.WriteLine(e);
+                    Console.WriteLine(e.Message);
+                    Environment.Exit(84);
                 }
                 return lines;
             }
@@ -52,16 +53,22 @@ namespace CurrencyConvertor
             }
             public void initAllNodeAndEdges(string[] file)
             {
-                for (int i = 2; i < file.Length; i++)
+                try {
+                    for (int i = 2; i < file.Length; i++)
+                    {
+                        string[] tmp = parseLine(file[i]);
+                        Tuple<string, string, string> tmpTupple = new Tuple<string, string, string>(tmp[0], tmp[1], tmp[2]);
+                        if (!edges.Contains(tmpTupple))
+                            edges.Add(tmpTupple);
+                        if (!allNodes.Contains(tmp[0]))
+                            allNodes.Add(tmp[0]);
+                        if (!allNodes.Contains(tmp[1]))
+                            allNodes.Add(tmp[1]);
+                    }
+                } catch(Exception e)
                 {
-                    string[] tmp = parseLine(file[i]);
-                    Tuple<string, string, string> tmpTupple = new Tuple<string, string, string>(tmp[0], tmp[1], tmp[2]);
-                    if (!edges.Contains(tmpTupple))
-                        edges.Add(tmpTupple);
-                    if (!allNodes.Contains(tmp[0]))
-                        allNodes.Add(tmp[0]);
-                    if (!allNodes.Contains(tmp[1]))
-                        allNodes.Add(tmp[1]);
+                    Console.WriteLine(e.Message);
+                    Environment.Exit(84);
                 }
             }
         }

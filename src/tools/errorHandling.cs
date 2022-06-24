@@ -19,6 +19,7 @@ namespace CurrencyConvertor
             }
             public void checkFormatFile(string[] file, Regex firstLineRegex, Regex numberRegex, Regex convertRegex)
             {
+                try {
                 int i = 2;
                 if (file.Length < 3)
                     throw new Exception("File have bad size");
@@ -28,6 +29,10 @@ namespace CurrencyConvertor
                     checkFormatLine(file[i], convertRegex);
                 if ((i - 2).ToString() != file[1])
                     throw new Exception("Bad number of convertions");
+                } catch(Exception e) {
+                    Console.WriteLine(e.Message);
+                    Environment.Exit(84);
+                }
             }
             static void checkFormatLine(string line, Regex regex)
             {
