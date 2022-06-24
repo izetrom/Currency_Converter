@@ -24,7 +24,7 @@ namespace CurrencyConvertor
 
             private Regex formatLine = new Regex(@"([a-zA-Z\s]{3});([0-9]*);([a-zA-Z\s]{3})");
             private Regex numberLine = new Regex(@"([0-9]*)");
-            private Regex convertLine = new Regex(@"([a-zA-Z\s]{3});([a-zA-Z\s]{3});[0-9]*(?:\.[0-9]+)");
+            private Regex convertLine = new Regex(@"([a-zA-Z\s]{3});([a-zA-Z\s]{3});[0-9]*(?:\.[0-9]{0,4})$");
             private string[] goal = new string[] {};
             public string[] Goal { get { return this.goal; } set { this.goal = value; }
 }
